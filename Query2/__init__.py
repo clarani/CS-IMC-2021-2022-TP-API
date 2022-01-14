@@ -1,5 +1,6 @@
 import logging
-
+import os
+import pyodbc as pyodbc
 import azure.functions as func
 
 
@@ -35,7 +36,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.info("Test de connexion avec pyodbc...")
         with pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT primaryName FROM [dbo].[tNames] WHERE birthYear = 1960;")
+            cursor.execute("SELECT primaryName FROM [dbo].[tNames] WHERE birthYear = 1960")
 
             rows = cursor.fetchall()
             for row in rows:
